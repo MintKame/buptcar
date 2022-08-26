@@ -1,0 +1,16 @@
+body {
+    background-color: lightblue;
+}
+
+#user_password,
+#user_mobile,
+#user_name{
+    color: #3498db;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 25px;/*边框圆角*/
+}
+#content h1{
+    color: white;
+    font-size: 50px;
+}

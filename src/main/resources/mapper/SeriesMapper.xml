@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.buptcar.dao.SeriesMapper">
+
+    <select id="getSeriesID" resultType="integer">
+        select seriesID from series
+        <where>
+            brand = #{brand}
+            and seriesName = #{seriesName}
+        </where>
+    </select>
+
+    <select id="getBrandList" resultType="string">
+        select distinct brand from series
+    </select>
+
+    <select id="getSeriesNameList" resultType="string">
+        select distinct seriesName from series
+    </select>
+</mapper>

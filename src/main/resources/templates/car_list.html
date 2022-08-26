@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bupt 二手车</title>
+    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <link th:href="@{/css/form.css}" rel="stylesheet" />
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div>
+
+<form class="forms" th:action="@{/car}" method="post">
+
+    <table cellpadding="10px" class="center_table">
+        <tr>
+            <td><div class="white_word">价格区间（万元）</div> </td>
+            <td colspan="2"><input type="number" name="lowPrice"></td>
+            <td colspan="2"><input type="number" name="highPrice"></td>
+        </tr>
+        <tr>
+            <td><div class="white_word">地区</div>
+                <select name="region">
+                <option value="">不限</option>
+                <option>安徽</option>
+                <option>北京</option>
+                <option>重庆</option>
+                <option>福建</option>
+                <option>广东</option>
+                <option>贵州</option>
+                <option>广西</option>
+                <option>甘肃</option>
+                <option>河北</option>
+                <option>河南</option>
+                <option>黑龙江</option>
+                <option>湖北</option>
+                <option>湖南</option>
+                <option>海南</option>
+                <option>吉林</option>
+                <option>江苏</option>
+                <option>江西</option>
+                <option>辽宁</option>
+                <option>内蒙古</option>
+                <option>宁夏</option>
+                <option>青海</option>
+                <option>上海</option>
+                <option>山西</option>
+                <option>山东</option>
+                <option>四川</option>
+                <option>陕西</option>
+                <option>天津</option>
+                <option>西藏</option>
+                <option>新疆</option>
+                <option>云南</option>
+                <option>浙江</option>
+            </select>
+            </td>
+            <td><div class="white_word">品牌</div>
+                <select name="brand">
+                    <option value="">不限</option>
+                    <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+                </select>
+            </td>
+            <td><div class="white_word">系列</div>
+                <select name="seriesName">
+                    <option value="">不限</option>
+                    <option th:each="seriesName : ${seriesNames}" th:value="${seriesName}" th:text="${seriesName}"></option>
+                </select>
+                <br/>
+            </td>
+            <td><div class="white_word">车型</div>
+                <select name="bodyType">
+                    <option value="">不限</option>
+                    <option>豪华车</option>
+                    <option>微型车</option>
+                    <option>小型车</option>
+                    <option>中型车</option>
+                    <option>跑车</option>
+                    <option>商务车</option>
+                    <option>大巴</option>
+                </select>
+            </td>
+            <td><div class="white_word">车龄</div>
+                <select name="age">
+                    <option value="">不限</option>
+                    <option value="1">1年以内</option>
+                    <option value="3">3年以内</option>
+                    <option value="5">5年以内</option>
+                    <option value="10">10年以内</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td> <div class="white_word">国别</div>
+                <select name="nation">
+                    <option value="">不限</option>
+                    <option>国产</option>
+                    <option>日系</option>
+                    <option>德系</option>
+                    <option>美系</option>
+                    <option>其他</option>
+                </select>
+            </td>
+            <td><div class="white_word">变速箱</div>
+                <select name="gearbox">
+                    <option value="">不限</option>
+                    <option>手动</option>
+                    <option>自动</option>
+                </select>
+            </td>
+            <td><div class="white_word">里程</div>
+                <select name="mkm">
+                    <option value="">不限</option>
+                    <option value="1">1万千米内</option>
+                    <option value="3">3万千米内</option>
+                    <option value="5">5万千米内</option>
+                    <option value="10">10万千米内</option>
+                </select>
+            </td>
+            <td><div class="white_word">燃料</div>
+                <select name="fuelType">
+                    <option value="">不限</option>
+                    <option>汽油</option>
+                    <option>柴油</option>
+                    <option>电动</option>
+                </select>
+            </td>
+            <td> <input class="btn" type="submit" value="查询"> </td>
+        </tr>
+    </table>
+</form>
+
+<div class="list list-view">
+    <ul>
+        <li th:each="car : ${cars}">
+            <table>
+                <tr>
+                    <td>
+                        <a class="list-item" th:href="@{'/car/' + ${car.carID}}">
+                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${car.img}}"></div>
+                            <div class="d">
+                                <h3  th:text="${car.brand} + ${car.seriesName}"></h3><br/>
+                                [[${car.region}]]
+                                [[${car.mkm + '万千米'}]]<br/>
+                                [[${car.regDate + '日注册'}]]<br/>
+                                <div class="d-main">
+                                    <p class="price">
+                                        <span class="s"><em class="n" th:text="'￥' + ${car.price + ' 万'}"></em></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

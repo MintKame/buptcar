@@ -1,0 +1,104 @@
+body {
+    font-family: 'Microsoft YaHei';
+    color: #666;
+    font-size: 12px;
+    margin-left: 100px;
+}
+
+.white_word{
+    color: white;
+}
+/* 按钮 */
+.deep_btn
+{
+    display: inline-block;
+    width: 178px;
+    height: 38px;
+    border: 1px solid steelblue;
+    font-size: 14px;
+    line-height: 38px;
+    margin-left: 10px;
+    text-align: center;
+    color: white;
+    background-color: steelblue;
+}
+
+.light_btn{
+    display: inline-block;
+    width: 178px;
+    height: 38px;
+    border: 1px solid steelblue;
+    font-size: 14px;
+    line-height: 38px;
+    margin-left: 10px;
+    text-align: center;
+    color: steelblue;
+    background-color: lightblue;
+}
+
+.center_table{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/*顶部条状态*/
+.header_con {
+    height: 29px;
+    background-color: #34495e;
+    border-bottom: 1px solid #ddd;
+}
+
+.header {
+    width: 1200px;
+    height: 29px;
+    margin: 0 auto;
+}
+
+.user_login {
+    height: 29px;
+    line-height: 29px;
+    float: right;
+}
+
+.user_login a {
+    color: pink;
+}
+
+.user_login a:hover {
+    color: #f80;
+}
+
+
+/* 导航栏 */
+.navbar_con {
+    height: 40px;
+    border-bottom: 2px solid #34495e;
+}
+
+.navbar {
+    width: 1200px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.subnav_con h1 {
+    width: 200px;
+    height: 40px;
+    background-color: #34495e;
+    font: 14px/40px 'Microsoft YaHei UI';
+    text-align: center;
+    color: #fff;
+}
+
+.navlist {
+    overflow: hidden;
+}
+
+.navlist li {
+    float: left;
+    height: 14px;
+    padding: 0 25px;
+    border-left: 1px solid #666;
+    margin-left: -2px;
+    margin-top: 13px;
+}

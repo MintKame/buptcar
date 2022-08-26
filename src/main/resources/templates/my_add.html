@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加车</title>
+
+    <link th:href="@{/css/form.css}" rel="stylesheet" />
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div>
+
+<div>
+
+    <form class="forms" th:action="@{/mycar}" method="post" enctype="multipart/form-data">
+
+        <div class="warn_msg" th:text="${msg}"></div>
+
+        <table class="center_table" cellpadding="30px">
+        <tr >
+            <td><div class="white_word">地区</div>
+                <select name="region">
+                    <option>安徽</option>
+                    <option>北京</option>
+                    <option>重庆</option>
+                    <option>福建</option>
+                    <option>广东</option>
+                    <option>贵州</option>
+                    <option>广西</option>
+                    <option>甘肃</option>
+                    <option>河北</option>
+                    <option>河南</option>
+                    <option>黑龙江</option>
+                    <option>湖北</option>
+                    <option>湖南</option>
+                    <option>海南</option>
+                    <option>吉林</option>
+                    <option>江苏</option>
+                    <option>江西</option>
+                    <option>辽宁</option>
+                    <option>内蒙古</option>
+                    <option>宁夏</option>
+                    <option>青海</option>
+                    <option>上海</option>
+                    <option>山西</option>
+                    <option>山东</option>
+                    <option>四川</option>
+                    <option>陕西</option>
+                    <option>天津</option>
+                    <option>西藏</option>
+                    <option>新疆</option>
+                    <option>云南</option>
+                    <option>浙江</option>
+                </select>
+            </td>
+            <td><div class="white_word">地址</div><input type="text" name="addr"></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="white_word">品牌</div>
+                <select name="brand">
+                    <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+                </select>
+            </td>
+            <td><div class="white_word">系列</div>
+                <select name="seriesName">
+                    <option th:each="seriesName : ${seriesNames}" th:value="${seriesName}" th:text="${seriesName}"></option>
+                </select>
+            </td>
+            <td>
+                <div class="white_word">价格（万元）</div>
+                <input type="text" name="price">
+            </td>
+
+        </tr>
+        <tr >
+            <td>
+                <div class="white_word">变速箱</div>
+                <select name="gearbox">
+                    <option>手动</option>
+                    <option>自动</option>
+                </select>
+            </td>
+            <td>
+                <div class="white_word">注册日期</div>
+                <input type="date" name="regDate">
+            </td>
+            <td>
+                <div class="white_word">里程（万千米）</div>
+                <input type="text" name="mkm">
+            </td>
+        </tr>
+        <tr><td colspan="3">
+            <div class="white_word">描述</div>
+            <textarea cols="70" rows="5" name="description"></textarea><br/><br/>
+        </td></tr>
+        <tr>
+            <td colspan="2">
+                <div class="white_word">
+                    <label>上传主图</label> <input type="file" name="main_img"><br>
+                    <label>上传图片</label> <input type="file" name="imgs" multiple><br>
+                </div>
+            </td>
+            <td><input class="btn" type="submit" value="添加"></td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

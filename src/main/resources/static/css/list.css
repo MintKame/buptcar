@@ -1,0 +1,16 @@
+.list { overflow: hidden}
+.list li { padding: .5rem; background: #fff; border-bottom: 1px solid #ddd}
+.list li .p { overflow: hidden}
+.list li .price { line-height: 26px}
+.list td {
+    padding-right: 50px;
+    padding-left: 200px;
+}
+.price .s { color:#f04e23}
+.price .n { font-size:large; font-weight:600}
+.price del { margin: 0 .5rem; font-size:1.2rem; color: #999}
+.list-view .list-item { display: -webkit-box; display: -ms-box; display: box}
+.list-view .p { width: 100px; height: 100px; margin-right: 1rem}
+.list-view .p-pic { width: 100px; height: 100px}
+.list-view .d { -webkit-box-flex: 1; -ms-box-flex: 1; box-flex: 1; margin: 4px 0 6px 0}
+.list-view .d-title { height: 44px; font-size: 1.4rem}

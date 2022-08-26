@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bupt car</title>
+
+    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div>
+
+<div class="list list-view">
+    <ul>
+        <li th:each="payment : ${payments}">
+            <table class="center_table">
+                <tr>
+                    <td>
+                        <a class="list-item" th:href="@{'/car/' + ${payment.carID}}">
+                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${payment.imgURL}}"></div>
+
+                            <div class="d">
+                                <h3  th:text="${payment.carDesc}"></h3><br/>
+                                [[${'提车地点：' + payment.addr}]]
+                            </div>
+                        </a>
+                    </td>
+                    <td th:text="${'价格：' + payment.total_fee}"></td>
+                    <td th:text="${'卖家电话：' + payment.salerMobile}"></td>
+                    <td>
+                        <div th:switch="${payment.state}">
+                            <div th:case="0">待卖家确认
+                                <form th:action="@{'/payment/cancel/' + ${payment.paymentID}}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="submit" class="light_btn"  value="取消订单"/>
+                                </form>
+                            </div>
+                            <div th:case="1">卖家已确认，待买家支付
+                                <form th:action="@{'/payment/cancel/' + ${payment.paymentID}}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="submit" class="light_btn"  value="取消订单"/>
+                                </form>
+                                <form th:action="@{'/payment/pay/' + ${payment.paymentID}}" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="submit" class="deep_btn"  value="支付"/>
+                                </form>
+                            </div>
+
+                            <div th:case="2">买家已支付，待提车
+                                <!--                                [[${'支付时间：' + payment.gmt_pay}]]<br/>-->
+                                <!--                                [[${'支付方式：' + payment.pay_type}]]<br/>-->
+
+                                <form th:action="@{'/payment/finish/' + ${payment.paymentID}}" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="submit" class="light_btn"  value="完成提车"/>
+                                </form>
+                            </div>
+                            <div th:case="3">已提车</div>
+                            <!--                                [[${'支付时间：' + payment.gmt_pay}]]<br/>-->
+                            <!--                                [[${'支付方式：' + payment.pay_type}]]<br/>-->
+
+                            <div th:case="4">已取消</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

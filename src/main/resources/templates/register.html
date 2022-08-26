@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注册</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <link th:href="@{/css/form.css}" rel="stylesheet" />
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="forms" id="content">
+        <form th:action="@{/register}" method="post"  onsubmit="return valForm()">
+            <h1>注册</h1>
+            <a th:href="@{/login}" target="_self" class="warn_msg">去登录</a>
+            <br/><br/>
+            <div class="warn_msg" th:text="${msg}"></div>
+            <!--name-->
+            <input type="text" name="userName" id="user_name"  placeholder="请输入用户名"><br/>
+            <span id="tip-name" class="warn_msg"></span><br/>
+            <!--password-->
+            <input type="password" name="userPassword" id="user_password"  placeholder="请输入密码"><br/>
+            <span id="tip-pwd" class="warn_msg"></span><br/>
+            <!--mobile-->
+            <input type="number" name="userMobile" id="user_mobile"  placeholder="请输入手机号"><br/>
+            <span id="tip-mobile" class="warn_msg"></span><br/>
+
+            <input type="submit" class="btn" value="注册">
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        //校验用户名，密码，手机是否合法
+        var iptName=document.getElementById('user_name');
+        var iptPwd=document.getElementById('user_password');
+        var iptMobile=document.getElementById('user_mobile');
+
+        var tipName=document.getElementById('tip-name');
+        var tipPwd=document.getElementById('tip-pwd');
+        var tipMobile=document.getElementById('tip-mobile');
+
+        //对用户名和密码进行校验
+        function valForm(){
+            return valUserName() && valPwd() && valMobile();
+        }
+
+        //校验用户名
+        function valUserName() {
+            var p=/^[0-9a-zA-Z]{3,6}$/;//用户名必须为3-6字母或数字
+            var r=p.test(iptName.value);//校验
+            if(!r){
+                //校验不通过
+                tipName.textContent='3-6位,数字或字母';
+                iptName.focus();
+                return false;
+            } else {
+                tipName.textContent=null;
+            }
+            return true;
+        }
+
+        //校验密码
+        function valPwd(){
+            var p=/^[0-9a-zA-Z]{6,12}$/;//密码必须为6-12字母或数字
+            var r=p.test(iptPwd.value);//校验
+            if(!r){
+                tipPwd.textContent='6-12位,数字或字母';
+                iptPwd.focus();//获取焦点
+                return false;
+            } else {
+                tipPwd.textContent=null;
+            }
+            return true;
+        }
+
+        //校验手机号
+        function valUserName() {
+            var p=/^[0-9]{11}$/;//手机号必须为11位数字
+            var r=p.test(iptMobile.value);//校验
+            if(!r){
+                //校验不通过
+                tipMobile.textContent='11位,数字';
+                tipMobile.focus();
+                return false;
+            } else {
+                tipMobile.textContent=null;
+            }
+            return true;
+        }
+
+    </script>
+</body>
+</html>

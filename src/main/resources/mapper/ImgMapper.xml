@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.buptcar.dao.ImgMapper">
+
+    <update id="setImgByCarID" >
+        update car
+        <set>img = #{img}</set>
+        <where>carID = #{carID}</where>
+    </update>
+
+    <insert id="addImg">
+        insert into car_img(carID, url, gmt_create)
+        values (#{carID}, #{url}, NOW())
+    </insert>
+
+    <select id="getImgByCarID" resultType="string" parameterType="integer">
+        select url
+        from car_img
+        <where>
+            carID = #{carID}
+        </where>
+    </select>
+</mapper>

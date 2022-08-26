@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.buptcar.dao.CarMapper">
+    <select id="getCarList" resultType="com.bupt.buptcar.pojo.Car" parameterType="com.bupt.buptcar.pojo.Car">
+        select carID, brand, seriesName, region, price, regDate, mkm, img
+        from series, car
+        <where>
+            series.seriesID = car.seriesID
+            and isSaled = false
+            <if test="region!=null and region.trim()!=&quot;&quot;">
+                and  region=#{region}
+            </if>
+               <if test="lowPrice!=null">
+                and  price &gt;= #{lowPrice}
+            </if>
+            <if test="highPrice!=null">
+                and  price &lt;= #{highPrice}
+            </if>
+            <if test="brand!=null and brand.trim()!=&quot;&quot;">
+                and  brand=#{brand}
+            </if>
+            <if test="seriesName!=null and seriesName.trim()!=&quot;&quot;">
+                and  seriesName=#{seriesName}
+            </if>
+            <if test="bodyType!=null and bodyType.trim()!=&quot;&quot;">
+                and bodyType=#{bodyType}
+            </if>
+            <if test="age!=null">
+                and YEAR(NOW()) - YEAR(regDate) &lt;= #{age}
+            </if>
+            <if test="gearbox!=null and gearbox.trim()!=&quot;&quot;">
+                and gearbox=#{gearbox}
+            </if>
+            <if test="mkm!=null">
+                and mkm &lt;= #{mkm}
+            </if>
+            <if test="nation!=null and nation.trim()!=&quot;&quot;">
+                and nation=#{nation}
+            </if>
+            <if test="fuelType!=null and fuelType.trim()!=&quot;&quot;">
+                and fuelType=#{fuelType}
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" resultType="com.bupt.buptcar.pojo.Car" parameterType="integer">
+        select carID, salerID, region, price, regDate, gearbox, mkm, img, description,
+          brand, seriesName, nation, bodyType, fuelType, seatNum, isSaled
+        from series, car
+        <where>
+            series.seriesID = car.seriesID
+            and carID = #{carID}
+        </where>
+    </select>
+
+    <select id="getBySalerID" resultType="com.bupt.buptcar.pojo.Car" parameterType="integer">
+        select carID, brand, seriesName,price,  regDate, gearbox, mkm, img
+        from series, car
+        <where>
+            series.seriesID = car.seriesID
+            and salerID = #{salerID}
+        </where>
+    </select>
+
+    <delete id="deleteByID" parameterType="integer">
+        delete from car
+        <where>
+            carID = #{carID}
+        </where>
+    </delete>
+
+    <insert id="addCar" parameterType="com.bupt.buptcar.pojo.Car"
+            useGeneratedKeys="true" keyProperty="carID">
+        insert into car(seriesID, salerID, region, addr, isSaled, price, regDate, gearbox, mkm, description, gmt_create)
+        values (#{seriesID}, #{salerID}, #{region}, #{addr},false,  #{price}, #{regDate}, #{gearbox}, #{mkm}, #{description},  NOW())
+    </insert>
+
+    <select id="getSalerIDByCarID" resultType="integer" parameterType="integer">
+        select salerID from car
+        <where>
+            carID = #{carID}
+        </where>
+    </select>
+
+    <select id="getAddrByCarID" resultType="string" parameterType="integer">
+        select CONCAT(region, ' ', addr) addr
+        from car
+        <where>
+            carID = #{carID}
+        </where>
+    </select>
+
+    <select id="getDescByCarID" resultType="string" parameterType="integer">
+        select CONCAT(series.brand, ' ', series.seriesName)
+        from car, series
+        <where>
+            carID = #{carID}
+            and car.seriesID = series.seriesID
+        </where>
+    </select>
+
+    <select id="getPriceByCarID" resultType="double" parameterType="integer">
+        select price
+        from car
+        <where> carID = #{carID} </where>
+    </select>
+
+    <update id="setSaledByCarID" parameterType="integer">
+        update car
+        <set>isSaled = true</set>
+        <where>carID = #{carID}</where>
+    </update>
+</mapper>

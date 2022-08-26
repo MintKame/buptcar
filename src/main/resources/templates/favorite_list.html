@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bupt car</title>
+
+    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div>
+
+<div class="list list-view">
+    <ul>
+        <li th:each="car : ${cars}">
+            <table class="center_table">
+                <tr>
+                    <td>
+                        <a class="list-item" th:href="@{'/car/' + ${car.carID}}">
+                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${car.img}}"></div>
+                            <div class="d">
+                                <h3  th:text="${car.brand} + ${car.seriesName}"></h3><br/>
+                                [[${car.region}]]
+                                [[${car.mkm + '万千米'}]]<br/>
+                                [[${car.regDate + '日注册'}]]<br/>
+                                <div class="d-main">
+                                    <p class="price">
+                                        <span class="s"><em class="n" th:text="'￥' + ${car.price + ' 万'}"></em></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>
+                        <form th:action="@{'/favorite/' + ${car.carID}}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input class="light_btn" type="submit" value="取消收藏"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

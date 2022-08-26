@@ -1,0 +1,29 @@
+#content{
+    padding: 20px;
+    position: absolute;
+    top: 20%;/*顶部到元素*/
+    left:30%;
+    width: 40%;
+    height:400px;
+    margin-top:-200;/*边缘到底部*/
+    text-align-last: center;
+}
+
+.forms{
+    background-color: #34495e;
+
+}
+
+.warn_msg{
+    color: yellow;
+}
+
+.btn{
+    background-color: pink;
+    border-radius:10px;
+    border:0;/*边框宽度0*/
+    height:50px;
+    width:90px;
+    padding:5px 10px;/*上下填充10 左右5*/
+    font-size: 20px;
+}

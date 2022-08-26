@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>bupt 二手车</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <link th:href="@{/css/form.css}" rel="stylesheet" />
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="forms" id="content">
+        <h1>登录</h1>
+        <a th:href="@{/register}" target="_self" class="warn_msg">去注册</a>
+        <br/><br/>
+
+        <div class="warn_msg" th:text="${msg}"></div>
+        <form  th:action="@{/login}" method="post" >
+            <input type="text" name="userName" id="user_name" placeholder="请输入用户名" /><br/><br/>
+            <input type="password" name="userPassword" id="user_password" placeholder="请输入密码" /><br /><br />
+            <input type="submit" class="btn" value="登录" />
+        </form>
+    </div>
+</body>
+</html>

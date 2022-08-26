@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>bupt car</title>
+    <link th:href="@{/css/info.css}" rel="stylesheet"/>
+<!--    <link th:href="@{/css/common.css}" rel="stylesheet"/>-->
+
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div><br/><br/>
+<!-- 商品信息 -->
+<div class="center_con clearfix">
+    <div class="main_menu fl">
+        <div id="container">
+            <div id="photo" th:each="img:${imgs}">
+                <img th:src="@{'/pic/' + ${img}}" >
+            </div>
+        </div>
+    </div>
+
+    <div class="goods_detail_list fr"><br />
+        <h3 th:text="${car.brand} + ' - ' + ${car.seriesName}"></h3><br /><br />
+        <div class="prize_bar">
+            <br/>
+            <div>
+                <em class="show_prize fl" th:text="${'￥' + car.price + ' 万  '}"></em>
+                <div class="show_prize fl" th:if="${car.isSaled}">已卖出！</div>
+            </div>
+
+            <div class="show_unit fl">
+                <table cellpadding="10px">
+                    <tr>
+                        <td th:text="${'地区：' + car.region}"></td>
+                        <td th:text="${'车型：' + car.bodyType}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${'注册日期：'+ car.regDate}"></td>
+                        <td th:text="${'变速箱：' + car.gearbox}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${'里程：' + car.mkm + '万公里'}"></td>
+                        <td th:text="${'国别：' + car.nation}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${'燃料：' + car.fuelType}"></td>
+                        <td th:text="${'座位：' + car.seatNum}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+<!--todo-->
+        <div th:if="${!car.isSaled}">
+            <div th:text="${msg}" style="color:red;"> </div><br/>
+
+            <table><tr>
+                <td>
+                    <form  th:action="@{'/favorite/' + ${car.carID}}" method="post">
+                        <input class="deep_btn" type="submit" value="加入收藏">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{'/payment/' + ${car.carID}}" method="post">
+                        <input  class="light_btn" type="submit" value="发起购买">
+                    </form>
+                </td>
+            </tr>
+                <tr>
+                    <form  th:action="@{'/reserve/' + ${car.carID}}" method="post">
+                        <td><input type="datetime-local" name="gmt_reserve"></td>
+                        <td><input class="deep_btn" type="submit" value="预约看车"></td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- 商品图片 -->
+<div class="all_imgs">
+    <p th:text="${car.description}"> </p>
+    <br /><br /><br />
+    <div th:each="img:${imgs}"><img th:src="@{'/pic/' + ${img}}" ></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.buptcar.dao.FavoriteMapper">
+
+    <insert id="addToFavorite" parameterType="integer">
+        insert into favorite(carID, buyerID, gmt_create)
+        values (#{carID}, #{buyerID}, NOW())
+    </insert>
+
+    <select id="isFavorite" parameterType="integer" resultType="boolean">
+        SELECT IFNULL((SELECT 1 FROM favorite
+        <where>
+            buyerID = #{buyerID}
+            and carID = #{carID}
+        </where> LIMIT 1), 0)
+    </select>
+
+    <select id="getByBuyerID" resultType="com.bupt.buptcar.pojo.Car" parameterType="integer">
+        select car.carID carID, img, brand, seriesName, price, region, regDate, mkm
+        from series, car, favorite
+        <where>
+            series.seriesID = car.seriesID
+            and favorite.carID = car.carID
+            and buyerID = #{userID}
+        </where>
+    </select>
+
+    <delete id="deleteByCarID" parameterType="integer">
+        delete from favorite
+        <where>
+            carID = #{carID}
+        </where>
+    </delete>
+
+    <delete id="deleteByBuyerIDCarID" parameterType="integer">
+        delete from favorite
+        <where>
+            buyerID = #{buyerID}
+            and carID = #{carID}
+        </where>
+    </delete>
+</mapper>

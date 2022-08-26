@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bupt.buptcar.dao.ReserveMapper">
+
+    <insert id="addReserve" parameterType="com.bupt.buptcar.pojo.Reserve">
+        insert into reserve(carID, buyerID, salerID, gmt_reserve, gmt_create)
+        values (#{carID}, #{buyerID}, #{salerID}, #{gmt_reserve}, NOW())
+    </insert>
+
+    <select id="isReserve" parameterType="integer" resultType="boolean">
+        SELECT IFNULL((SELECT 1 FROM reserve
+        <where>
+            buyerID = #{buyerID} and carID = #{carID} and state != 3
+        </where> LIMIT 1), 0)
+    </select>
+
+    <select id="getByBuyerID" resultType="com.bupt.buptcar.pojo.Reserve" parameterType="integer">
+        SELECT reserveID, reserve.carID carID, state, gmt_reserve, CONCAT(region, ' ', car.addr) addr, img imgURL,
+            CONCAT(brand, ' ', seriesName) carDesc, user.userMobile salerMobile
+        FROM reserve,car,series,user
+        <where>
+            reserve.buyerID = #{buyerID}
+            AND reserve.carID = car.carID
+            AND car.seriesID = series.seriesID
+            AND car.salerID = user.userID
+        </where>
+    </select>
+
+    <select id="getBySalerID" resultType="com.bupt.buptcar.pojo.Reserve" parameterType="integer">
+        SELECT reserveID, reserve.carID carID, state, gmt_reserve, CONCAT(region, ' ', car.addr) addr, img imgURL,
+        CONCAT(brand, ' ', seriesName) carDesc, user.userMobile buyerMobile
+        FROM reserve,car,series,user
+        <where>
+            reserve.salerID = #{salerID}
+            AND reserve.carID = car.carID
+            AND car.seriesID = series.seriesID
+            AND reserve.buyerID = user.userID
+        </where>
+    </select>
+
+    <update id="setStateByReserveID" parameterType="integer">
+        UPDATE reserve
+        <set>state  = #{state}</set>
+        <where>reserveID = #{reserveID}</where>
+    </update>
+
+    <update id="setCancelByCarID" parameterType="integer">
+        UPDATE reserve
+        <set>state  = 3</set>
+        <where>
+            carID = #{carID}
+            and state != 2
+        </where>
+    </update>
+</mapper>

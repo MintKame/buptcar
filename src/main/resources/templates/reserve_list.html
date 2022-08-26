@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bupt car</title>
+
+    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <div th:include="common :: commonheader"> </div>
+</head>
+
+<body>
+<div th:replace="common :: common_header"></div>
+
+<div class="list list-view">
+    <ul>
+        <li th:each="reserve : ${reserves}">
+            <table class="center_table">
+                <tr>
+                    <td>
+                        <a class="list-item" th:href="@{'/car/' + ${reserve.carID}}">
+                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${reserve.imgURL}}"></div>
+
+                            <div class="d">
+                                <h3  th:text="${reserve.carDesc}"></h3><br/>
+                                [[${'看车时间：' + reserve.gmt_reserve}]]<br/>
+                                [[${'看车地点：' + reserve.addr}]]
+                            </div>
+                        </a>
+                    </td>
+                    <td th:text="${'卖家电话：' + reserve.salerMobile}"></td>
+                    <td>
+                        <div th:switch="${reserve.state}">
+                            <div th:case="0">待卖家确认
+                                <form th:action="@{'/reserve/cancel/' + ${reserve.reserveID}}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="submit" class="light_btn"  value="取消预约"/>
+                                </form>
+                            </div>
+                            <div th:case="1">卖家已确认，待看车
+                                <form th:action="@{'/reserve/cancel/' + ${reserve.reserveID}}" method="post">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="submit" class="light_btn"  value="取消预约"/>
+                                </form>
+                                <form th:action="@{'/reserve/finish/' + ${reserve.reserveID}}" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="submit" class="deep_btn"  value="完成看车"/>
+                                </form>
+                            </div>
+
+                            <div th:case="2">已完成看车</div>
+                            <div th:case="3">已取消</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
