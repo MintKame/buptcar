@@ -3,46 +3,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bupt.buptcar.dao.CarMapper">
+
     <select id="getCarList" resultType="com.bupt.buptcar.pojo.Car" parameterType="com.bupt.buptcar.pojo.Car">
         select carID, brand, seriesName, region, price, regDate, mkm, img
         from series, car
         <where>
             series.seriesID = car.seriesID
             and isSaled = false
-            <if test="region!=null and region.trim()!=&quot;&quot;">
-                and  region=#{region}
+            <if test="car.region!=null and car.region.trim()!=&quot;&quot;">
+                and  region=#{car.region}
             </if>
-               <if test="lowPrice!=null">
-                and  price &gt;= #{lowPrice}
+               <if test="car.lowPrice!=null">
+                and  price &gt;= #{car.lowPrice}
             </if>
-            <if test="highPrice!=null">
-                and  price &lt;= #{highPrice}
+            <if test="car.highPrice!=null">
+                and  price &lt;= #{car.highPrice}
             </if>
-            <if test="brand!=null and brand.trim()!=&quot;&quot;">
-                and  brand=#{brand}
+            <if test="car.brand!=null and car.brand.trim()!=&quot;&quot;">
+                and  brand=#{car.brand}
             </if>
-            <if test="seriesName!=null and seriesName.trim()!=&quot;&quot;">
-                and  seriesName=#{seriesName}
+            <if test="car.seriesName!=null and car.seriesName.trim()!=&quot;&quot;">
+                and  seriesName=#{car.seriesName}
             </if>
-            <if test="bodyType!=null and bodyType.trim()!=&quot;&quot;">
-                and bodyType=#{bodyType}
+            <if test="car.bodyType!=null and car.bodyType.trim()!=&quot;&quot;">
+                and bodyType=#{car.bodyType}
             </if>
-            <if test="age!=null">
-                and YEAR(NOW()) - YEAR(regDate) &lt;= #{age}
+            <if test="car.age!=null">
+                and YEAR(NOW()) - YEAR(regDate) &lt;= #{car.age}
             </if>
-            <if test="gearbox!=null and gearbox.trim()!=&quot;&quot;">
-                and gearbox=#{gearbox}
+            <if test="car.gearbox!=null and car.gearbox.trim()!=&quot;&quot;">
+                and gearbox=#{car.gearbox}
             </if>
-            <if test="mkm!=null">
-                and mkm &lt;= #{mkm}
+            <if test="car.mkm!=null">
+                and mkm &lt;= #{car.mkm}
             </if>
-            <if test="nation!=null and nation.trim()!=&quot;&quot;">
-                and nation=#{nation}
+            <if test="car.nation!=null and car.nation.trim()!=&quot;&quot;">
+                and nation=#{car.nation}
             </if>
-            <if test="fuelType!=null and fuelType.trim()!=&quot;&quot;">
-                and fuelType=#{fuelType}
+            <if test="car.fuelType!=null and car.fuelType.trim()!=&quot;&quot;">
+                and fuelType=#{car.fuelType}
             </if>
         </where>
+        limit #{pageIndex}, #{pageSize}
     </select>
 
     <select id="getById" resultType="com.bupt.buptcar.pojo.Car" parameterType="integer">

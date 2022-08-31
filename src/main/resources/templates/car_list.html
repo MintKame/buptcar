@@ -11,7 +11,7 @@
 <body>
 <div th:replace="common :: common_header"></div>
 
-<form class="forms" th:action="@{/car}" method="post">
+<form class="forms" th:action="@{/cars/1}" method="post">
 
     <table cellpadding="10px" class="center_table">
         <tr>
@@ -138,7 +138,8 @@
                 <tr>
                     <td>
                         <a class="list-item" th:href="@{'/car/' + ${car.carID}}">
-                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${car.img}}"></div>
+<!--                            <div class="p"><img class="p-pic" th:src="@{'/pic/' + ${car.img}}"></div>-->
+                            <div class="p"><img class="p-pic"></div>
                             <div class="d">
                                 <h3  th:text="${car.brand} + ${car.seriesName}"></h3><br/>
                                 [[${car.region}]]
@@ -155,6 +156,14 @@
                 </tr>
             </table>
         </li>
+    </ul>
+</div>
+<div class='page-nav'>
+    <ul>
+        <li>当前：第 [[${pageID}]] 页</li>
+        <li><a th:href="@{/cars/1}">首页</a></li>
+        <li><a th:href="@{/cars/{pageID}(pageID=${pageID}-1)}">上一页</a></li>
+        <li><a th:href="@{/cars/{pageID}(pageID=${pageID}+1)}">下一页</a></li>
     </ul>
 </div>
 </body>

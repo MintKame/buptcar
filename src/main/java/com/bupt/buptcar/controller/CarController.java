@@ -33,12 +33,18 @@ public class CarController {
     @Autowired
     ImgService imgService;
 
-    /** 所有汽车 */
-    @RequestMapping(value = "car", method = {RequestMethod.GET, RequestMethod.POST})
-    public String getCarList(Model model, Car carCondition){
-        List<Car> carList = carService.getCarList(carCondition);
+    @RequestMapping(value = {"car", "cars"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String getCars(){
+        return "redirect:cars/1";
+    }
+
+    /** 某页汽车  */
+    @RequestMapping(value = "cars/{pageID}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getCarOfPage(Model model, Car carCondition, @PathVariable("pageID") Integer pageID){
+        List<Car> carList = carService.getCarList(carCondition, pageID);
         List<String> brandList = seriesService.getBrandList();
         List<String> seriesNameList = seriesService.getSeriesNameList();
+        model.addAttribute("pageID", pageID);
         model.addAttribute("cars", carList);
         model.addAttribute("brands", brandList);
         model.addAttribute("seriesNames", seriesNameList);

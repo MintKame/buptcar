@@ -20,8 +20,11 @@ public class CarService {
     @Autowired
     FavoriteMapper favoriteMapper;
 
-    public List<Car> getCarList(Car car){
-        return carMapper.getCarList(car);
+    public List<Car> getCarList(Car car, Integer pageID){
+        int pageSize = 100; // 每页100条
+        int pageIndex = (pageID-1)*100; // 从第 pageIndex 条开始显示
+        if(pageIndex < 0) pageIndex = 0;
+        return carMapper.getCarList(car, pageIndex, pageSize);
     }
 
     public Car getById(Integer carID){

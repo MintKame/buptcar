@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface CarMapper {
-    public List<Car> getCarList(Car car);
+    public List<Car> getCarList(@Param("car")Car car, @Param("pageIndex")Integer pageIndex, @Param("pageSize")Integer pageSize);
 
     public Car getById(Integer carId);
 
